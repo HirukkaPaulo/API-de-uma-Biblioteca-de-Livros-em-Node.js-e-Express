@@ -19,15 +19,15 @@ app.get('/livros', async (req,res) => {
     
     const livroProcurado = await livroModel.find(filtroLivro);
     
-    /*if(livroProcurado == ''){
+    if(livroProcurado == ''){
         return res.status(404).json({msg: "Não existe nenhum livro com este título ou Id no Banco de Dados."})
-    }*/
+    }
 
     return res.status(200).json(livroProcurado);
 })
 
 
-app.post('/livros', async (req,res) => {
+app.post('/livros/cadastro', async (req,res) => {
     if(!req.body.id){
         return res.status(400).json([{message: "O campo id é obrigatório"}])
     }
@@ -38,9 +38,11 @@ app.post('/livros', async (req,res) => {
     if(!req.body.pages){
         return res.status(400).json([{message: "O campo Número de Páginas é obrigatório"}])
     }
+
     if(!req.body.isbn){
         return res.status(400).json([{message: "O campo ISBN é obrigatório"}])
     }
+
     if(!req.body.pb){
         return res.status(400).json([{message: "O campo Editora é obrigatório"}])
     }
@@ -56,7 +58,6 @@ app.post('/livros', async (req,res) => {
             pages: req.body.pages,
             isbn: req.body.isbn,
             pb: req.body.pb
-            
         })
     }
     const listaAtualizada = await livroModel.find({})   
@@ -64,7 +65,7 @@ app.post('/livros', async (req,res) => {
 })
 
 app.put('/livros/edicao/:id', async (req,res) => {
-    /*if(!req.body.title){
+    if(!req.body.title){
         return res.status(400).json([{message: "O campo Título é obrigatório"}])
     }
     
@@ -76,7 +77,7 @@ app.put('/livros/edicao/:id', async (req,res) => {
     }
     if(!req.body.pb){
         return res.status(400).json([{message: "O campo Editora é obrigatório"}])
-    }*/
+    }
     
     const id = req.params.id;
     const novoValor = { 
@@ -102,8 +103,6 @@ app.put('/livros/edicao/:id', async (req,res) => {
     
 });
     
-
-
 app.delete('/livros/:id', async (req,res) => {
     const id = req.params.id;
     try {
@@ -119,6 +118,7 @@ app.delete('/livros/:id', async (req,res) => {
         res.status(500).json({ mensagem: 'Erro interno do servidor.' });
       }
 })
+
 app.listen(8080, () => {
     console.log('servidor funcionando na porta 8080')
 })
