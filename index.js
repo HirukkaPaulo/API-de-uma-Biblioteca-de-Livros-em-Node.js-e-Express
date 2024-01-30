@@ -2,9 +2,11 @@ const express = require('express');
 const app = express();
 const livroModel = require('./src/module/Books/books.model.js')
 const cors = require('cors')
+const connection = require('./src/config/mongo.js')
 app.use(cors());
 app.use(express.json());
 
+connection();
 
 app.get('/livros', async (req,res) => {
     let filtroLivro = {};
@@ -17,9 +19,9 @@ app.get('/livros', async (req,res) => {
     
     const livroProcurado = await livroModel.find(filtroLivro);
     
-    if(livroProcurado == ''){
+    /*if(livroProcurado == ''){
         return res.status(404).json({msg: "Não existe nenhum livro com este título ou Id no Banco de Dados."})
-    }
+    }*/
 
     return res.status(200).json(livroProcurado);
 })
