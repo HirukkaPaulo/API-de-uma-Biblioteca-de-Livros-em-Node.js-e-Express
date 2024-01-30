@@ -65,7 +65,7 @@ app.post('/livros/cadastro', async (req,res) => {
 })
 
 app.put('/livros/edicao/:id', async (req,res) => {
-    if(!req.body.title){
+    /*if(!req.body.title){
         return res.status(400).json([{message: "O campo Título é obrigatório"}])
     }
     
@@ -77,17 +77,17 @@ app.put('/livros/edicao/:id', async (req,res) => {
     }
     if(!req.body.pb){
         return res.status(400).json([{message: "O campo Editora é obrigatório"}])
-    }
+    }*/
     
     const id = req.params.id;
-    const novoValor = { 
+    const novoLivro = { 
         title: req.body.title,
         pages:req.body.pages,
         isbn:req.body.isbn,
         pb:req.body.pb
     };
     try {
-        const livroAtualizado = await livroModel.findByIdAndUpdate(id,novoValor,
+        const livroAtualizado = await livroModel.findByIdAndUpdate(id,novoLivro,
           { new: true }
         );
     
