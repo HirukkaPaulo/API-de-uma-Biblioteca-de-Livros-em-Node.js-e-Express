@@ -52,13 +52,7 @@ app.post('/livros/cadastro', async (req,res) => {
     if(livroExistente.length){
         res.status(400).json([{message: "O livro com o título digitado já existe"}]);
     }else{
-        const livro = await livroModel.create({
-            id: req.body.id,
-            title: req.body.title,
-            pages: req.body.pages,
-            isbn: req.body.isbn,
-            pb: req.body.pb
-        })
+        const livro = await livroModel.create(req.body)
     }
     const listaAtualizada = await livroModel.find({})   
     return res.status(201).json(listaAtualizada)
@@ -80,12 +74,8 @@ app.put('/livros/edicao/:id', async (req,res) => {
     }*/
     
     const id = req.params.id;
-    const novoLivro = { 
-        title: req.body.title,
-        pages:req.body.pages,
-        isbn:req.body.isbn,
-        pb:req.body.pb
-    };
+    const novoLivro = req.body;
+        
     try {
         const livroAtualizado = await livroModel.findByIdAndUpdate(id,novoLivro,
           { new: true }
