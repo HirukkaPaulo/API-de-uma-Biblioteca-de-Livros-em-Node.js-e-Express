@@ -28,9 +28,6 @@ app.get('/livros', async (req,res) => {
 
 
 app.post('/livros/cadastro', async (req,res) => {
-    if(!req.body.id){
-        return res.status(400).json([{message: "O campo id é obrigatório"}])
-    }
     if(!req.body.title){
         return res.status(400).json([{message: "O campo Título é obrigatório"}])
     }
@@ -59,7 +56,7 @@ app.post('/livros/cadastro', async (req,res) => {
 })
 
 app.put('/livros/edicao/:id', async (req,res) => {
-    /*if(!req.body.title){
+    if(!req.body.title){
         return res.status(400).json([{message: "O campo Título é obrigatório"}])
     }
     
@@ -71,7 +68,7 @@ app.put('/livros/edicao/:id', async (req,res) => {
     }
     if(!req.body.pb){
         return res.status(400).json([{message: "O campo Editora é obrigatório"}])
-    }*/
+    }
     
     const id = req.params.id;
     const novoLivro = req.body;
@@ -110,5 +107,5 @@ app.delete('/livros/:id', async (req,res) => {
 })
 
 app.listen(8080, () => {
-    console.log('servidor funcionando na porta 8080')
+    console.log('Servidor funcionando!')
 })
